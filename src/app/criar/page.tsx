@@ -12,6 +12,7 @@ import {
   effectLabels,
   typeLabels,
 } from "../lib/declaration";
+import { EffectLayer } from "../components/effect-layer";
 
 const types: DeclarationType[] = ["love", "birthday", "friendship", "tribute", "special", "custom"];
 const colors: DeclarationColor[] = ["pink", "red", "lilac", "blue", "green", "gold", "mono"];
@@ -119,7 +120,8 @@ export default function CreateDeclarationPage() {
           </section>
           <section className="self-start rounded-3xl border border-[#24324a] p-4 shadow-xl sm:p-6" style={{ backgroundColor: colorValues[color] }}>
             <p className="mb-4 text-center text-sm font-semibold text-[#6ee7ff]">Pré-visualização</p>
-            <div className={`rounded-2xl border border-white/10 bg-[#0b1220]/90 p-7 text-center shadow-sm sm:p-10 ${effect === "glow" ? "shadow-[0_0_35px_rgba(110,231,255,0.35)]" : ""}`}>
+            <div className={`relative overflow-hidden rounded-2xl border border-white/10 bg-[#0b1220]/90 p-7 text-center shadow-sm sm:p-10 ${effect === "glow" ? "shadow-[0_0_35px_rgba(110,231,255,0.35)]" : ""}`}>
+              <EffectLayer effect={effect} />
               <span className="text-5xl text-[#6ee7ff]">{effect === "hearts" ? "♡ ♡" : effect === "confetti" ? "✦ ♡ ✦" : "♡"}</span>
               {photo && <Image src={photo} alt="Pré-visualização da foto" width={160} height={160} unoptimized className="mx-auto mt-5 h-40 w-40 rounded-2xl object-cover" />}
               <p className="mt-6 text-sm text-slate-400">{typeLabels[type]} para {name || "alguém especial"}</p>

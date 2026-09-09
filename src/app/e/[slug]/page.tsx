@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { EffectLayer } from "../../components/effect-layer";
 import {
   colorValues,
   Declaration,
@@ -93,7 +94,8 @@ export default function PublicDeclarationPage() {
           className="w-full rounded-4xl p-6 shadow-xl sm:p-12"
           style={{ backgroundColor: colorValues[declaration.color] }}
         >
-          <div className="rounded-3xl bg-[#0f172a] p-8 text-center shadow-sm sm:p-16">
+          <div className={`relative overflow-hidden rounded-3xl bg-[#0f172a] p-8 text-center shadow-sm sm:p-16 ${declaration.effect === "glow" ? "effect-glow" : ""}`}>
+            <EffectLayer effect={declaration.effect} />
             <span className="text-6xl text-[#6ee7ff]">
               {declaration.effect === "hearts"
                 ? "♡ ♡"

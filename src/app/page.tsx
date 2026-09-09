@@ -5,7 +5,7 @@ import Image from "next/image";
 const declarationTypes = [
   {
     title: "Declaração de amor",
-    description: "Transforme seus sentimentos em uma experiência inesquecível.",
+    description: "Transforme seus sentimentos em uma experiência inesquecível para alguém especial.",
     icon: "♡",
   },
   {

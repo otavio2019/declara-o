@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Declaration, templateLabels } from "../../lib/declaration";
@@ -92,6 +93,16 @@ export default function PublicDeclarationPage() {
         >
           <div className="rounded-3xl bg-white p-8 text-center shadow-sm sm:p-16">
             <span className="text-6xl text-[#e85d75]">♡</span>
+            {declaration.photo && (
+              <Image
+                src={declaration.photo}
+                alt={`Foto de ${declaration.name}`}
+                width={640}
+                height={320}
+                unoptimized
+                className="mx-auto mt-6 max-h-80 w-full rounded-2xl object-cover"
+              />
+            )}
             <p className="mt-6 text-sm text-gray-500">
               {templateLabels[declaration.template]} para {declaration.name}
             </p>

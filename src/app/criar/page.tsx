@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { FormEvent, useState } from "react";
 import {
   DeclarationTemplate,
@@ -20,6 +21,7 @@ export default function CreateDeclarationPage() {
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [template, setTemplate] = useState<DeclarationTemplate>("romantic");
+  const [photo, setPhoto] = useState("");
   const [publicUrl, setPublicUrl] = useState("");
   const [copyStatus, setCopyStatus] = useState("");
   const [formError, setFormError] = useState("");
@@ -34,7 +36,7 @@ export default function CreateDeclarationPage() {
       const response = await fetch("/api/declarations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, title, message, template }),
+        body: JSON.stringify({ name, title, message, template, photo: photo || null }),
       });
       const data = (await response.json()) as { slug?: string; error?: string };
 
@@ -55,12 +57,24 @@ export default function CreateDeclarationPage() {
     }
   }
 
-  async function handleCopyLink() {
+  async function handleShareLink() {
+    const url = `${window.location.origin}${publicUrl}`;
+
     try {
-      await navigator.clipboard.writeText(`${window.location.origin}${publicUrl}`);
+      // Usa o menu nativo no celular e copia o endereço em navegadores sem suporte.
+      if (navigator.share) {
+        await navigator.share({
+          title: title || "Uma declaração especial",
+          text: "Recebi uma declaração especial para você.",
+          url,
+        });
+        return;
+      }
+
+      await navigator.clipboard.writeText(url);
       setCopyStatus("Link copiado!");
     } catch {
-      setCopyStatus("Não foi possível copiar automaticamente. Abra o link e copie o endereço.");
+      setCopyStatus("Não foi possível compartilhar agora.");
     }
   }
 
@@ -69,6 +83,7 @@ export default function CreateDeclarationPage() {
     setTitle("");
     setMessage("");
     setTemplate("romantic");
+    setPhoto("");
     setPublicUrl("");
     setCopyStatus("");
   }
@@ -108,6 +123,36 @@ export default function CreateDeclarationPage() {
                   className="w-full rounded-xl border border-[#e8cfd2] bg-white px-4 py-3 outline-none focus:border-[#e85d75]"
                   placeholder="Ex.: Mariana"
                 />
+              </label>
+
+              <label className="block">
+                <span className="mb-2 block text-sm font-semibold">Adicionar uma foto</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(event) => {
+                    const file = event.target.files?.[0];
+                    if (!file) {
+                      setPhoto("");
+                      return;
+                    }
+
+                    if (file.size > 2 * 1024 * 1024) {
+                      setFormError("Escolha uma foto de até 2 MB.");
+                      event.target.value = "";
+                      return;
+                    }
+
+                    // A imagem fica em formato Data URL para a prévia e o envio ao servidor.
+                    const reader = new FileReader();
+                    reader.onload = () => setPhoto(String(reader.result));
+                    reader.readAsDataURL(file);
+                  }}
+                  className="w-full rounded-xl border border-[#e8cfd2] bg-white px-4 py-3 text-sm"
+                />
+                <span className="mt-2 block text-xs text-gray-500">
+                  Opcional. Formatos de imagem até 2 MB.
+                </span>
               </label>
 
               <label className="block">
@@ -179,8 +224,8 @@ export default function CreateDeclarationPage() {
                   <Link href={publicUrl} className="underline">
                     Abrir página pública
                   </Link>
-                  <button type="button" onClick={handleCopyLink} className="font-semibold underline">
-                    Copiar link
+                  <button type="button" onClick={handleShareLink} className="font-semibold underline">
+                    Compartilhar
                   </button>
                 </div>
                 {copyStatus && <p className="mt-2">{copyStatus}</p>}
@@ -194,6 +239,16 @@ export default function CreateDeclarationPage() {
           <section className={`self-start rounded-4xl p-6 shadow-xl sm:p-10 ${templateStyles[template]}`}>
             <div className="rounded-3xl bg-white p-8 text-center shadow-sm sm:p-12">
               <span className="text-5xl text-[#e85d75]">♡</span>
+              {photo && (
+                <Image
+                  src={photo}
+                  alt="Pré-visualização da foto"
+                  width={160}
+                  height={160}
+                  unoptimized
+                  className="mx-auto mt-5 h-40 w-40 rounded-2xl object-cover"
+                />
+              )}
               <p className="mt-6 text-sm text-gray-500">Para {previewName}</p>
               <h2 className="mt-3 text-3xl font-bold">{previewTitle}</h2>
               <p className="mt-5 whitespace-pre-wrap leading-7 text-gray-600">

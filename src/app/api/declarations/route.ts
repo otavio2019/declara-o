@@ -8,6 +8,7 @@ type DeclarationInput = {
   title?: unknown;
   message?: unknown;
   template?: unknown;
+  photo?: unknown;
 };
 
 export async function POST(request: Request) {
@@ -19,7 +20,7 @@ export async function POST(request: Request) {
     return Response.json({ error: "JSON inválido." }, { status: 400 });
   }
 
-  const { name, title, message, template } = input;
+  const { name, title, message, template, photo } = input;
   if (
     typeof name !== "string" ||
     typeof title !== "string" ||
@@ -36,6 +37,17 @@ export async function POST(request: Request) {
     );
   }
 
+  if (
+    photo !== undefined &&
+    photo !== null &&
+    (typeof photo !== "string" || !photo.startsWith("data:image/"))
+  ) {
+    return Response.json(
+      { error: "A foto enviada não é válida." },
+      { status: 400 },
+    );
+  }
+
   const slug = createDeclarationSlug(name);
   const { error } = await supabase.from("declarations").insert({
     slug,
@@ -43,6 +55,7 @@ export async function POST(request: Request) {
     title: title.trim(),
     message: message.trim(),
     template,
+    photo: photo || null,
   });
 
   if (error) {

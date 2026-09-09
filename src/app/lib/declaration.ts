@@ -5,6 +5,7 @@ export type Declaration = {
   title: string;
   message: string;
   template: DeclarationTemplate;
+  photo?: string | null;
 };
 
 export const declarationStorageKey = "declara-o-declarations";

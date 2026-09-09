@@ -49,13 +49,13 @@ export const typeLabels: Record<DeclarationType, string> = {
 };
 
 export const colorValues: Record<DeclarationColor, string> = {
-  pink: "#fff0f3",
-  red: "#ffe8e8",
-  lilac: "#f2edff",
-  blue: "#eaf4ff",
-  green: "#edf7f2",
-  gold: "#fff7df",
-  mono: "#f2f2f2",
+  pink: "#3b1f35",
+  red: "#421f2b",
+  lilac: "#2d2350",
+  blue: "#12334b",
+  green: "#153b35",
+  gold: "#453518",
+  mono: "#202938",
 };
 
 export const colorLabels: Record<DeclarationColor, string> = {

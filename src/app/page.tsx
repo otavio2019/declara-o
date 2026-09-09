@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+
 
 const declarationTypes = [
   {
@@ -22,7 +24,20 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#fff9f5] text-[#29232a]">
       <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
-        <h1 className="text-2xl font-bold text-[#8f2942]">declara-o</h1>
+        <Link href="/" className="flex items-center gap-3">
+          <Image
+            src="/coracao.png"
+            alt="Coração"
+            width={60}
+            height={60}
+            className="object-contain"
+          />
+
+
+          <h1 className="text-2xl font-bold text-[#8f2942]">
+            declara-o
+          </h1>
+        </Link>
 
         <nav className="hidden gap-6 text-sm md:flex">
           <a href="#como-funciona" className="hover:text-[#e85d75]">
@@ -33,7 +48,6 @@ export default function Home() {
             Modelos
           </a>
         </nav>
-
       </header>
 
       <section className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 md:grid-cols-2">

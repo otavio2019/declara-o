@@ -31,6 +31,17 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
+Antes do primeiro deploy, abra **Settings > Environment Variables** no projeto da Vercel e cadastre estas variáveis nos ambientes **Production**, **Preview** e **Development**:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=sua-service-role-key
+```
+
+O valor de `NEXT_PUBLIC_SUPABASE_URL` está em **Supabase > Project Settings > API > Project URL**. O valor de `SUPABASE_SERVICE_ROLE_KEY` está na mesma tela, em **Project API keys > service_role**. Essa segunda chave é secreta e não deve ser commitada nem usada em componentes client-side.
+
+O cliente do Supabase é criado somente quando uma rota da API é chamada, portanto o build não falha mais por avaliar as variáveis durante a compilação. Ainda assim, as duas variáveis precisam estar configuradas na Vercel para que `/api/declarations` funcione em produção. Depois de cadastrá-las, faça um novo deploy.
+
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

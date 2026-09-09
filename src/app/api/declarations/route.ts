@@ -4,7 +4,7 @@ import {
   DeclarationEffect,
   DeclarationType,
 } from "../../lib/declaration";
-import { supabase } from "../../../lib/supabase/server";
+import { getSupabase } from "../../../lib/supabase/server";
 
 const types: DeclarationType[] = ["love", "birthday", "friendship", "tribute", "special", "custom"];
 const colors: DeclarationColor[] = ["pink", "red", "lilac", "blue", "green", "gold", "mono"];
@@ -21,6 +21,7 @@ type DeclarationInput = {
 };
 
 export async function POST(request: Request) {
+  const supabase = getSupabase();
   let input: DeclarationInput;
 
   try {

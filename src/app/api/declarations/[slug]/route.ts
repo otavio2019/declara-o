@@ -1,9 +1,10 @@
-import { supabase } from "../../../../lib/supabase/server";
+import { getSupabase } from "../../../../lib/supabase/server";
 
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ slug: string }> },
 ) {
+  const supabase = getSupabase();
   const { slug } = await params;
   const { data, error } = await supabase
     .from("declarations")

@@ -1,37 +1,31 @@
 "use client";
-
 import Link from "next/link";
+<<<<<<< HEAD
 import Image from "next/image";
+=======
+
+>>>>>>> c8eba36e017b18c96a6ae12fe10569ef2a9bd553
 import { FormEvent, useState } from "react";
-import {
-  DeclarationTemplate,
-  templateLabels,
-} from "../lib/declaration";
 
-const templates: DeclarationTemplate[] = ["romantic", "special", "story"];
-
-const templateStyles: Record<DeclarationTemplate, string> = {
-  romantic: "bg-[#fff0f3] text-[#8f2942]",
-  special: "bg-[#fff7df] text-[#825d11]",
-  story: "bg-[#edf7f2] text-[#22634c]",
-};
-
-export default function CreateDeclarationPage() {
-  const [name, setName] = useState("");
+export default function CriarDeclaracao() {
+  const [recipientName, setRecipientName] = useState("");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
+<<<<<<< HEAD
   const [template, setTemplate] = useState<DeclarationTemplate>("romantic");
   const [photo, setPhoto] = useState("");
   const [publicUrl, setPublicUrl] = useState("");
   const [copyStatus, setCopyStatus] = useState("");
   const [formError, setFormError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+=======
+  const [template, setTemplate] = useState("romantico");
+>>>>>>> c8eba36e017b18c96a6ae12fe10569ef2a9bd553
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setIsSubmitting(true);
-    setFormError("");
 
+<<<<<<< HEAD
     try {
       const response = await fetch("/api/declarations", {
         method: "POST",
@@ -93,38 +87,56 @@ export default function CreateDeclarationPage() {
     message || "Sua mensagem aparecerá aqui enquanto você escreve.";
   const previewName = name || "Alguém especial";
 
-  return (
-    <main className="min-h-screen bg-[#fff9f5] px-6 py-8 text-[#29232a]">
-      <div className="mx-auto max-w-6xl">
-        <Link href="/" className="font-bold text-[#8f2942]">
-          declara-o
-        </Link>
+=======
+    alert("Declaração criada com sucesso!");
+  }
 
-        <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(420px,1.1fr)]">
+>>>>>>> c8eba36e017b18c96a6ae12fe10569ef2a9bd553
+  return (
+    <main className="min-h-screen bg-[#fff9f5] px-6 py-10 text-[#29232a]">
+      <div className="mx-auto max-w-6xl">
+        <header className="mb-10 flex items-center justify-between">
+          <a
+            href="/"
+            className="text-2xl font-bold text-[#8f2942] transition hover:text-[#e85d75]"
+          >
+            declara-o
+          </a>
+
+          <a
+            href="/"
+            className="text-sm font-medium text-gray-600 transition hover:text-[#e85d75]"
+          >
+            Voltar para início
+          </a>
+        </header>
+
+        <div className="grid gap-8 lg:grid-cols-2">
           <section>
-            <p className="font-medium text-[#e85d75]">Sua declaração</p>
-            <h1 className="mt-3 text-4xl font-bold leading-tight">
-              Crie uma mensagem para guardar para sempre.
+            <p className="font-medium text-[#e85d75]">Nova declaração</p>
+
+            <h1 className="mt-3 text-4xl font-bold md:text-5xl">
+              Crie algo especial
             </h1>
-            <p className="mt-4 leading-7 text-gray-600">
-              Preencha os dados e acompanhe a prévia da sua declaração em tempo
-              real.
+
+            <p className="mt-4 max-w-xl leading-7 text-gray-600">
+              Preencha os dados abaixo para começar a criar uma experiência
+              personalizada para alguém importante.
             </p>
 
-            <form onSubmit={handleSubmit} className="mt-8 space-y-5">
-              <label className="block">
-                <span className="mb-2 block text-sm font-semibold">
-                  Nome da pessoa homenageada
-                </span>
-                <input
-                  required
-                  value={name}
-                  onChange={(event) => setName(event.target.value)}
-                  className="w-full rounded-xl border border-[#e8cfd2] bg-white px-4 py-3 outline-none focus:border-[#e85d75]"
-                  placeholder="Ex.: Mariana"
-                />
-              </label>
+            <form
+              onSubmit={handleSubmit}
+              className="mt-8 space-y-6 rounded-3xl bg-white p-6 shadow-sm"
+            >
+              <div>
+                <label
+                  htmlFor="recipientName"
+                  className="mb-2 block text-sm font-semibold"
+                >
+                  Para quem é a declaração?
+                </label>
 
+<<<<<<< HEAD
               <label className="block">
                 <span className="mb-2 block text-sm font-semibold">Adicionar uma foto</span>
                 <input
@@ -157,59 +169,85 @@ export default function CreateDeclarationPage() {
 
               <label className="block">
                 <span className="mb-2 block text-sm font-semibold">Título</span>
+=======
+>>>>>>> c8eba36e017b18c96a6ae12fe10569ef2a9bd553
                 <input
+                  id="recipientName"
+                  type="text"
+                  value={recipientName}
+                  onChange={(event) => setRecipientName(event.target.value)}
+                  placeholder="Ex.: Ana"
                   required
+                  className="w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none transition focus:border-[#e85d75] focus:ring-2 focus:ring-[#fdecef]"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="title"
+                  className="mb-2 block text-sm font-semibold"
+                >
+                  Título da declaração
+                </label>
+
+                <input
+                  id="title"
+                  type="text"
                   value={title}
                   onChange={(event) => setTitle(event.target.value)}
-                  className="w-full rounded-xl border border-[#e8cfd2] bg-white px-4 py-3 outline-none focus:border-[#e85d75]"
                   placeholder="Ex.: Você torna tudo mais bonito"
-                />
-              </label>
-
-              <label className="block">
-                <span className="mb-2 block text-sm font-semibold">Mensagem</span>
-                <textarea
                   required
+                  className="w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none transition focus:border-[#e85d75] focus:ring-2 focus:ring-[#fdecef]"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="message"
+                  className="mb-2 block text-sm font-semibold"
+                >
+                  Sua mensagem
+                </label>
+
+                <textarea
+                  id="message"
                   value={message}
                   onChange={(event) => setMessage(event.target.value)}
-                  className="min-h-36 w-full resize-y rounded-xl border border-[#e8cfd2] bg-white px-4 py-3 outline-none focus:border-[#e85d75]"
-                  placeholder="Escreva algo que venha do coração..."
+                  placeholder="Escreva uma mensagem especial..."
+                  required
+                  rows={6}
+                  className="w-full resize-none rounded-2xl border border-gray-200 px-4 py-3 outline-none transition focus:border-[#e85d75] focus:ring-2 focus:ring-[#fdecef]"
                 />
-              </label>
+              </div>
 
-              <fieldset>
-                <legend className="mb-3 text-sm font-semibold">Modelo</legend>
-                <div className="grid gap-3 sm:grid-cols-3">
-                  {templates.map((option) => (
-                    <label
-                      key={option}
-                      className={`cursor-pointer rounded-xl border p-3 text-sm transition ${
-                        template === option
-                          ? "border-[#e85d75] ring-2 ring-[#fdecef]"
-                          : "border-[#e8cfd2] bg-white"
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="template"
-                        value={option}
-                        checked={template === option}
-                        onChange={() => setTemplate(option)}
-                        className="sr-only"
-                      />
-                      {templateLabels[option]}
-                    </label>
-                  ))}
-                </div>
-              </fieldset>
+              <div>
+                <label
+                  htmlFor="template"
+                  className="mb-2 block text-sm font-semibold"
+                >
+                  Escolha um modelo
+                </label>
+
+                <select
+                  id="template"
+                  value={template}
+                  onChange={(event) => setTemplate(event.target.value)}
+                  className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 outline-none transition focus:border-[#e85d75] focus:ring-2 focus:ring-[#fdecef]"
+                >
+                  <option value="romantico">Carta romântica</option>
+                  <option value="homenagem">Homenagem especial</option>
+                  <option value="memorias">Nossa história</option>
+                </select>
+              </div>
 
               <button
-                disabled={isSubmitting}
-                className="w-full rounded-full bg-[#e85d75] px-6 py-3 font-medium text-white transition hover:bg-[#c84860] disabled:cursor-not-allowed disabled:opacity-60"
+                type="submit"
+                className="w-full rounded-full bg-[#e85d75] px-6 py-3 font-semibold text-white transition hover:bg-[#c84860]"
               >
-                {isSubmitting ? "Salvando..." : "Gerar minha declaração"}
+                Continuar declaração
               </button>
             </form>
+<<<<<<< HEAD
 
             {formError && (
               <p className="mt-4 rounded-xl bg-[#fff0f3] p-4 text-sm text-[#8f2942]">
@@ -253,8 +291,34 @@ export default function CreateDeclarationPage() {
               <h2 className="mt-3 text-3xl font-bold">{previewTitle}</h2>
               <p className="mt-5 whitespace-pre-wrap leading-7 text-gray-600">
                 {previewMessage}
+=======
+          </section>
+
+          <section className="lg:pt-16">
+            <div className="sticky top-8 rounded-[2rem] bg-[#fdecef] p-6 shadow-xl">
+              <p className="mb-4 text-center text-sm font-semibold text-[#8f2942]">
+                Pré-visualização
+>>>>>>> c8eba36e017b18c96a6ae12fe10569ef2a9bd553
               </p>
-              <div className="mt-8 h-2 rounded-full bg-[#f4b6c2]" />
+
+              <div className="rounded-3xl bg-white p-8 text-center shadow-sm">
+                <span className="text-5xl text-[#e85d75]">♡</span>
+
+                <p className="mt-6 text-sm text-gray-500">
+                  Para {recipientName || "alguém especial"}
+                </p>
+
+                <h2 className="mt-3 text-3xl font-bold text-[#8f2942]">
+                  {title || "Sua declaração aparecerá aqui"}
+                </h2>
+
+                <p className="mt-5 whitespace-pre-line leading-7 text-gray-600">
+                  {message ||
+                    "Digite sua mensagem ao lado para visualizar como ela ficará."}
+                </p>
+
+                <div className="mt-8 h-2 rounded-full bg-[#f4b6c2]" />
+              </div>
             </div>
           </section>
         </div>

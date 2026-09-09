@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const declarationTypes = [
   {
     title: "Declaração de amor",
@@ -53,17 +55,23 @@ export default function Home() {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
-            <button className="rounded-full bg-[#e85d75] px-6 py-3 font-medium text-white transition hover:bg-[#c84860]">
+            <Link
+              href="/criar"
+              className="rounded-full bg-[#e85d75] px-6 py-3 font-medium text-white transition hover:bg-[#c84860]"
+            >
               Criar minha declaração
-            </button>
+            </Link>
 
-            <button className="rounded-full border border-[#e85d75] px-6 py-3 font-medium text-[#8f2942] transition hover:bg-[#fdecef]">
+            <a
+              href="#modelos"
+              className="rounded-full border border-[#e85d75] px-6 py-3 font-medium text-[#8f2942] transition hover:bg-[#fdecef]"
+            >
               Ver exemplos
-            </button>
+            </a>
           </div>
         </div>
 
-        <div className="relative rounded-[2rem] bg-[#fdecef] p-8 shadow-xl">
+        <div className="relative rounded-4xl bg-[#fdecef] p-8 shadow-xl">
           <div className="rounded-3xl bg-white p-8 text-center shadow-sm">
             <span className="text-5xl text-[#e85d75]">♡</span>
 

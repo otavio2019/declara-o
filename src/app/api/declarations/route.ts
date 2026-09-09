@@ -1,13 +1,22 @@
-import { createDeclarationSlug, DeclarationTemplate } from "../../lib/declaration";
+import {
+  createDeclarationSlug,
+  DeclarationColor,
+  DeclarationEffect,
+  DeclarationType,
+} from "../../lib/declaration";
 import { supabase } from "../../../lib/supabase/server";
 
-const templates: DeclarationTemplate[] = ["romantic", "special", "story"];
+const types: DeclarationType[] = ["love", "birthday", "friendship", "tribute", "special", "custom"];
+const colors: DeclarationColor[] = ["pink", "red", "lilac", "blue", "green", "gold", "mono"];
+const effects: DeclarationEffect[] = ["none", "hearts", "particles", "glow", "confetti"];
 
 type DeclarationInput = {
   name?: unknown;
   title?: unknown;
   message?: unknown;
-  template?: unknown;
+  type?: unknown;
+  color?: unknown;
+  effect?: unknown;
   photo?: unknown;
 };
 
@@ -20,16 +29,21 @@ export async function POST(request: Request) {
     return Response.json({ error: "JSON inválido." }, { status: 400 });
   }
 
-  const { name, title, message, template, photo } = input;
+  const { name, title, message, photo, type, color, effect } = input;
+
   if (
     typeof name !== "string" ||
     typeof title !== "string" ||
     typeof message !== "string" ||
-    typeof template !== "string" ||
+    typeof type !== "string" ||
+    typeof color !== "string" ||
+    typeof effect !== "string" ||
     !name.trim() ||
     !title.trim() ||
     !message.trim() ||
-    !templates.includes(template as DeclarationTemplate)
+    !types.includes(type as DeclarationType) ||
+    !colors.includes(color as DeclarationColor) ||
+    !effects.includes(effect as DeclarationEffect)
   ) {
     return Response.json(
       { error: "Preencha todos os campos com valores válidos." },
@@ -54,7 +68,10 @@ export async function POST(request: Request) {
     name: name.trim(),
     title: title.trim(),
     message: message.trim(),
-    template,
+    template: type === "love" ? "romantic" : type === "tribute" ? "special" : "story",
+    type,
+    color,
+    effect,
     photo: photo || null,
   });
 

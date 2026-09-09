@@ -7,7 +7,7 @@ export async function GET(
   const { slug } = await params;
   const { data, error } = await supabase
     .from("declarations")
-    .select("name, title, message, template, photo")
+    .select("name, title, message, type, color, effect, photo")
     .eq("slug", slug)
     .maybeSingle();
 

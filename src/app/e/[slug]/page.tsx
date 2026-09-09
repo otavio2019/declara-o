@@ -4,13 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Declaration, templateLabels } from "../../lib/declaration";
-
-const templateStyles: Record<Declaration["template"], string> = {
-  romantic: "bg-[#fff0f3] text-[#8f2942]",
-  special: "bg-[#fff7df] text-[#825d11]",
-  story: "bg-[#edf7f2] text-[#22634c]",
-};
+import {
+  colorValues,
+  Declaration,
+  effectLabels,
+  typeLabels,
+} from "../../lib/declaration";
 
 export default function PublicDeclarationPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -37,18 +36,20 @@ export default function PublicDeclarationPage() {
   }, [slug]);
 
   async function handleShare() {
+    const url = window.location.href;
     try {
       if (navigator.share) {
         await navigator.share({
           title: declaration?.title || "Uma declaração especial",
           text: "Recebi uma declaração especial para você.",
-          url: window.location.href,
+          url,
         });
+        setShareStatus("Declaração compartilhada!");
         return;
       }
 
-      await navigator.clipboard.writeText(window.location.href);
-      setShareStatus("Link copiado!");
+      await navigator.clipboard.writeText(url);
+      setShareStatus("Link copiado! Agora é só colar onde quiser.");
     } catch {
       setShareStatus("Não foi possível compartilhar agora.");
     }
@@ -89,10 +90,17 @@ export default function PublicDeclarationPage() {
         </Link>
 
         <section
-          className={`w-full rounded-4xl p-6 shadow-xl sm:p-12 ${templateStyles[declaration.template]}`}
+          className="w-full rounded-4xl p-6 shadow-xl sm:p-12"
+          style={{ backgroundColor: colorValues[declaration.color] }}
         >
           <div className="rounded-3xl bg-white p-8 text-center shadow-sm sm:p-16">
-            <span className="text-6xl text-[#e85d75]">♡</span>
+            <span className="text-6xl text-[#e85d75]">
+              {declaration.effect === "hearts"
+                ? "♡ ♡"
+                : declaration.effect === "confetti"
+                  ? "✦ ♡ ✦"
+                  : "♡"}
+            </span>
             {declaration.photo && (
               <Image
                 src={declaration.photo}
@@ -104,7 +112,7 @@ export default function PublicDeclarationPage() {
               />
             )}
             <p className="mt-6 text-sm text-gray-500">
-              {templateLabels[declaration.template]} para {declaration.name}
+              {typeLabels[declaration.type]} para {declaration.name}
             </p>
             <h1 className="mt-4 text-4xl font-bold leading-tight text-[#8f2942] sm:text-5xl">
               {declaration.title}
@@ -113,6 +121,9 @@ export default function PublicDeclarationPage() {
               {declaration.message}
             </p>
             <div className="mx-auto mt-10 h-2 max-w-xs rounded-full bg-[#f4b6c2]" />
+            <p className="mt-5 text-xs text-gray-400">
+              Efeito: {effectLabels[declaration.effect]}
+            </p>
           </div>
         </section>
 
@@ -121,9 +132,17 @@ export default function PublicDeclarationPage() {
           onClick={handleShare}
           className="mt-8 rounded-full bg-[#8f2942] px-6 py-3 font-medium text-white transition hover:bg-[#6f1f34]"
         >
-          Compartilhar declaração
+          Compartilhar
         </button>
         {shareStatus && <p className="mt-3 text-sm text-[#8f2942]">{shareStatus}</p>}
+        <a
+          href={`https://wa.me/?text=${encodeURIComponent(`Veja minha declaração: ${window.location.href}`)}`}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-3 text-sm font-medium text-[#8f2942] underline"
+        >
+          Compartilhar no WhatsApp
+        </a>
 
         <Link
           href="/criar"

@@ -21,7 +21,16 @@ type DeclarationInput = {
 };
 
 export async function POST(request: Request) {
-  const supabase = getSupabase();
+  let supabase;
+  try {
+    supabase = getSupabase();
+  } catch (error) {
+    console.error("Configuração do Supabase ausente:", error);
+    return Response.json(
+      { error: "O Supabase não está configurado no servidor. Cadastre as variáveis na Vercel." },
+      { status: 500 },
+    );
+  }
   let input: DeclarationInput;
 
   try {

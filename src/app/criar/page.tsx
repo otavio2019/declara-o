@@ -58,7 +58,15 @@ export default function CreateDeclarationPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, title, message, type, photo: photo || null, color, effect }),
       });
-      const data = (await response.json()) as { slug?: string; error?: string };
+      const responseText = await response.text();
+      let data: { slug?: string; error?: string } = {};
+      if (responseText.trim()) {
+        try {
+          data = JSON.parse(responseText) as { slug?: string; error?: string };
+        } catch {
+          throw new Error(`O servidor retornou uma resposta inválida (${response.status}).`);
+        }
+      }
       if (!response.ok || !data.slug) throw new Error(data.error || "Não foi possível gerar a declaração.");
       setPublicUrl(`/e/${data.slug}`);
       setStatus("");

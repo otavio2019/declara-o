@@ -4,7 +4,16 @@ export async function GET(
   _request: Request,
   { params }: { params: Promise<{ slug: string }> },
 ) {
-  const supabase = getSupabase();
+  let supabase;
+  try {
+    supabase = getSupabase();
+  } catch (error) {
+    console.error("Configuração do Supabase ausente:", error);
+    return Response.json(
+      { error: "O Supabase não está configurado no servidor. Cadastre as variáveis na Vercel." },
+      { status: 500 },
+    );
+  }
   const { slug } = await params;
   const { data, error } = await supabase
     .from("declarations")

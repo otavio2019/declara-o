@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #080b13;
+  --foreground: #f5f7fb;
+  --portfolio-bg: #080b13;
+  --portfolio-surface: #0f172a;
+  --portfolio-surface-soft: #111827;
+  --portfolio-text: #f5f7fb;
+  --portfolio-muted: #9aa8bb;
+  --portfolio-primary: #6ee7ff;
+  --portfolio-primary-strong: #39d8ff;
+  --portfolio-accent: #8b5cf6;
+  --portfolio-line: #24324a;
 }
 
 @theme inline {
@@ -12,15 +21,99 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(110, 231, 255, 0.16), transparent 26%),
+    radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.18), transparent 28%),
+    var(--portfolio-bg);
+  color: var(--portfolio-text);
+  font-family: "Space Grotesk", var(--font-geist-sans), Arial, sans-serif;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--portfolio-primary);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: rgba(110, 231, 255, 0.35);
+  color: var(--portfolio-text);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #64748b;
+}
+
+main {
+  position: relative;
+}
+
+main::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: linear-gradient(rgba(110, 231, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(110, 231, 255, 0.025) 1px, transparent 1px);
+  background-size: 32px 32px;
+  content: "";
+  pointer-events: none;
+}
+
+.portfolio-kicker {
+  color: var(--portfolio-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.portfolio-card {
+  border: 1px solid var(--portfolio-line);
+  background: rgba(15, 23, 42, 0.76);
+  box-shadow: 0 20px 35px rgba(3, 7, 18, 0.28);
+  backdrop-filter: blur(12px);
+}
+
+.portfolio-button {
+  border: 1px solid rgba(110, 231, 255, 0.5);
+  background: rgba(110, 231, 255, 0.08);
+  color: var(--portfolio-text);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.portfolio-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 24px rgba(62, 196, 255, 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -57,7 +57,7 @@ export default function PublicDeclarationPage() {
 
   if (isLoading) {
     return (
-      <main className="grid min-h-screen place-items-center bg-[#fff9f5] px-6 text-[#29232a]">
+      <main className="grid min-h-screen place-items-center bg-[#080b13] px-6 text-[#f5f7fb]">
         <p>Carregando sua declaração...</p>
       </main>
     );
@@ -65,15 +65,15 @@ export default function PublicDeclarationPage() {
 
   if (!declaration) {
     return (
-      <main className="grid min-h-screen place-items-center bg-[#fff9f5] px-6 text-center text-[#29232a]">
+      <main className="grid min-h-screen place-items-center bg-[#080b13] px-6 text-center text-[#f5f7fb]">
         <div>
-          <p className="font-medium text-[#e85d75]">Link indisponível</p>
+          <p className="font-medium text-[#6ee7ff]">Link indisponível</p>
           <h1 className="mt-3 text-3xl font-bold">
             Esta declaração não foi encontrada.
           </h1>
           <Link
             href="/criar"
-            className="mt-6 inline-block rounded-full bg-[#e85d75] px-6 py-3 font-medium text-white"
+            className="mt-6 inline-block rounded-full bg-[#6ee7ff] px-6 py-3 font-medium text-white"
           >
             Criar uma declaração
           </Link>
@@ -83,9 +83,9 @@ export default function PublicDeclarationPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#fff9f5] px-6 py-8 text-[#29232a]">
+    <main className="min-h-screen bg-[#080b13] px-6 py-8 text-[#f5f7fb]">
       <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-3xl flex-col items-center justify-center">
-        <Link href="/" className="mb-8 font-bold text-[#8f2942]">
+        <Link href="/" className="mb-8 font-bold text-[#6ee7ff]">
           declara-o
         </Link>
 
@@ -93,8 +93,8 @@ export default function PublicDeclarationPage() {
           className="w-full rounded-4xl p-6 shadow-xl sm:p-12"
           style={{ backgroundColor: colorValues[declaration.color] }}
         >
-          <div className="rounded-3xl bg-white p-8 text-center shadow-sm sm:p-16">
-            <span className="text-6xl text-[#e85d75]">
+          <div className="rounded-3xl bg-[#0f172a] p-8 text-center shadow-sm sm:p-16">
+            <span className="text-6xl text-[#6ee7ff]">
               {declaration.effect === "hearts"
                 ? "♡ ♡"
                 : declaration.effect === "confetti"
@@ -111,17 +111,17 @@ export default function PublicDeclarationPage() {
                 className="mx-auto mt-6 max-h-80 w-full rounded-2xl object-cover"
               />
             )}
-            <p className="mt-6 text-sm text-gray-500">
+            <p className="mt-6 text-sm text-slate-400">
               {typeLabels[declaration.type]} para {declaration.name}
             </p>
-            <h1 className="mt-4 text-4xl font-bold leading-tight text-[#8f2942] sm:text-5xl">
+            <h1 className="mt-4 text-4xl font-bold leading-tight text-[#6ee7ff] sm:text-5xl">
               {declaration.title}
             </h1>
-            <p className="mt-8 whitespace-pre-wrap text-lg leading-8 text-gray-600">
+            <p className="mt-8 whitespace-pre-wrap text-lg leading-8 text-slate-300">
               {declaration.message}
             </p>
-            <div className="mx-auto mt-10 h-2 max-w-xs rounded-full bg-[#f4b6c2]" />
-            <p className="mt-5 text-xs text-gray-400">
+            <div className="mx-auto mt-10 h-2 max-w-xs rounded-full bg-[#8b5cf6]" />
+            <p className="mt-5 text-xs text-slate-500">
               Efeito: {effectLabels[declaration.effect]}
             </p>
           </div>
@@ -130,23 +130,23 @@ export default function PublicDeclarationPage() {
         <button
           type="button"
           onClick={handleShare}
-          className="mt-8 rounded-full bg-[#8f2942] px-6 py-3 font-medium text-white transition hover:bg-[#6f1f34]"
+          className="mt-8 rounded-full bg-[#6ee7ff] px-6 py-3 font-medium text-white transition hover:bg-[#6f1f34]"
         >
           Compartilhar
         </button>
-        {shareStatus && <p className="mt-3 text-sm text-[#8f2942]">{shareStatus}</p>}
+        {shareStatus && <p className="mt-3 text-sm text-[#6ee7ff]">{shareStatus}</p>}
         <a
           href={`https://wa.me/?text=${encodeURIComponent(`Veja minha declaração: ${window.location.href}`)}`}
           target="_blank"
           rel="noreferrer"
-          className="mt-3 text-sm font-medium text-[#8f2942] underline"
+          className="mt-3 text-sm font-medium text-[#6ee7ff] underline"
         >
           Compartilhar no WhatsApp
         </a>
 
         <Link
           href="/criar"
-          className="mt-4 text-sm font-medium text-[#8f2942] underline"
+          className="mt-4 text-sm font-medium text-[#6ee7ff] underline"
         >
           Criar sua própria declaração
         </Link>

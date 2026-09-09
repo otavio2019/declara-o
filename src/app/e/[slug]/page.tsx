@@ -110,7 +110,7 @@ export default function PublicDeclarationPage() {
                 width={640}
                 height={320}
                 unoptimized
-                className="mx-auto mt-6 max-h-80 w-full rounded-2xl object-cover"
+                className="mx-auto mt-6 h-auto max-h-80 w-full rounded-2xl object-contain"
               />
             )}
             <p className="mt-6 text-sm text-slate-400">

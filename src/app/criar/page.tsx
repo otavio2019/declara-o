@@ -123,7 +123,7 @@ export default function CreateDeclarationPage() {
             <div className={`relative overflow-hidden rounded-2xl border border-white/10 bg-[#0b1220]/90 p-7 text-center shadow-sm sm:p-10 ${effect === "glow" ? "shadow-[0_0_35px_rgba(110,231,255,0.35)]" : ""}`}>
               <EffectLayer effect={effect} />
               <span className="text-5xl text-[#6ee7ff]">{effect === "hearts" ? "♡ ♡" : effect === "confetti" ? "✦ ♡ ✦" : "♡"}</span>
-              {photo && <Image src={photo} alt="Pré-visualização da foto" width={160} height={160} unoptimized className="mx-auto mt-5 h-40 w-40 rounded-2xl object-cover" />}
+              {photo && <Image src={photo} alt="Pré-visualização da foto" width={640} height={400} unoptimized className="mx-auto mt-5 h-auto max-h-64 w-auto max-w-full rounded-2xl object-contain" />}
               <p className="mt-6 text-sm text-slate-400">{typeLabels[type]} para {name || "alguém especial"}</p>
               <h2 className="mt-3 text-3xl font-bold text-[#6ee7ff]">{title || "Seu título especial"}</h2>
               <p className="mt-5 whitespace-pre-wrap leading-7 text-slate-300">{message || "Sua mensagem aparecerá aqui enquanto você escreve."}</p>
